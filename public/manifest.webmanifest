@@ -1,0 +1,16 @@
+{
+  "name": "MemoBoard",
+  "short_name": "MemoBoard",
+  "description": "A minimalist, nostalgic digital corkboard",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#eadecd",
+  "theme_color": "#53331b",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml"
+    }
+  ]
+}
