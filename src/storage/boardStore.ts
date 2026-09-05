@@ -17,7 +17,7 @@ export class BoardStore {
         0.25,
         0.2,
         'yellow',
-        'Welcome to MemoBoard 📌\n\nClick to type, or drag me anywhere.'
+        'Grab a post it, put it somewhere you want, very simple.'
       );
       starter1.rotation = -1.5;
       boardStorage.saveNote(starter1);
@@ -26,7 +26,7 @@ export class BoardStore {
         0.55,
         0.28,
         'pink',
-        'Grab a blank Post-it from the desk below.\n\nDrop notes on the trash bin to discard.'
+        'Drag the post it to the bin to remove.'
       );
       starter2.rotation = 1.8;
       boardStorage.saveNote(starter2);
@@ -35,9 +35,20 @@ export class BoardStore {
     }
 
     // Migrate any legacy notes that used 1600x950 absolute pixels to 0..1 normalized coords
+    // and update default starter notes text if untouched
     this.notes = rawNotes.map((n) => {
       let x = n.x;
       let y = n.y;
+      let text = n.text;
+
+      if (text === 'Welcome to MemoBoard 📌\n\nClick to type, or drag me anywhere.') {
+        text = 'Grab a post it, put it somewhere you want, very simple.';
+        boardStorage.saveNote({ ...n, text });
+      } else if (text === 'Grab a blank Post-it from the desk below.\n\nDrop notes on the trash bin to discard.') {
+        text = 'Drag the post it to the bin to remove.';
+        boardStorage.saveNote({ ...n, text });
+      }
+
       if (x > 1.0) {
         x = Math.max(0, Math.min(1, x / 1600));
       }
